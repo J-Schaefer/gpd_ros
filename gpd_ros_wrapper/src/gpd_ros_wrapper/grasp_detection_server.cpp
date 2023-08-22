@@ -1,4 +1,4 @@
-#include <gpd_ros/grasp_detection_server.h>
+#include <gpd_ros_wrapper/grasp_detection_server.h>
 
 
 GraspDetectionServer::GraspDetectionServer(ros::NodeHandle& node)
@@ -28,19 +28,19 @@ GraspDetectionServer::GraspDetectionServer(ros::NodeHandle& node)
   }
 
   // Advertise ROS topic for detected grasps.
-  grasps_pub_ = node.advertise<gpd_ros::GraspConfigList>("clustered_grasps", 10);
+  grasps_pub_ = node.advertise<gpd_ros_msgs::GraspConfigList>("clustered_grasps", 10);
 
   node.getParam("workspace", workspace_);
 }
 
 
-bool GraspDetectionServer::detectGrasps(gpd_ros::detect_grasps::Request& req, gpd_ros::detect_grasps::Response& res)
+bool GraspDetectionServer::detectGrasps(gpd_ros_msgs::detect_grasps::Request& req, gpd_ros_msgs::detect_grasps::Response& res)
 {
   ROS_INFO("Received service request ...");
 
   // 1. Initialize cloud camera.
   cloud_camera_ = NULL;
-  const gpd_ros::CloudSources& cloud_sources = req.cloud_indexed.cloud_sources;
+  const gpd_ros_msgs::CloudSources& cloud_sources = req.cloud_indexed.cloud_sources;
 
   // Set view points.
   Eigen::Matrix3Xd view_points(3, cloud_sources.view_points.size());
@@ -110,7 +110,7 @@ bool GraspDetectionServer::detectGrasps(gpd_ros::detect_grasps::Request& req, gp
     }
 
     // Publish the detected grasps.
-    gpd_ros::GraspConfigList selected_grasps_msg = GraspMessages::createGraspListMsg(grasps, cloud_camera_header_);
+    gpd_ros_msgs::GraspConfigList selected_grasps_msg = GraspMessages::createGraspListMsg(grasps, cloud_camera_header_);
     res.grasp_configs = selected_grasps_msg;
     ROS_INFO_STREAM("Detected " << selected_grasps_msg.grasps.size() << " highest-scoring grasps.");
     return true;

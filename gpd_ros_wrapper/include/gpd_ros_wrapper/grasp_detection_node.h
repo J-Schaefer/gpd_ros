@@ -56,16 +56,16 @@
 #include <gpd/sequential_importance_sampling.h>
 
 // this project (messages)
-#include <gpd_ros/CloudIndexed.h>
-#include <gpd_ros/CloudSamples.h>
-#include <gpd_ros/CloudSources.h>
-#include <gpd_ros/GraspConfig.h>
-#include <gpd_ros/GraspConfigList.h>
-#include <gpd_ros/SamplesMsg.h>
+#include <gpd_ros_msgs/CloudIndexed.h>
+#include <gpd_ros_msgs/CloudSamples.h>
+#include <gpd_ros_msgs/CloudSources.h>
+#include <gpd_ros_msgs/GraspConfig.h>
+#include <gpd_ros_msgs/GraspConfigList.h>
+#include <gpd_ros_msgs/SamplesMsg.h>
 
 // this project (headers)
-#include <gpd_ros/grasp_messages.h>
-#include <gpd_ros/grasp_plotter.h>
+#include <gpd_ros_wrapper/grasp_messages.h>
+#include <gpd_ros_wrapper/grasp_plotter.h>
 
 typedef pcl::PointCloud<pcl::PointXYZRGBA> PointCloudRGBA;
 typedef pcl::PointCloud<pcl::PointNormal> PointCloudPointNormal;
@@ -131,25 +131,25 @@ private:
    * \brief Callback function for the ROS topic that contains the input point cloud and a list of indices.
    * \param msg the incoming ROS message
   */
-  void cloud_indexed_callback(const gpd_ros::CloudIndexed& msg);
+  void cloud_indexed_callback(const gpd_ros_msgs::CloudIndexed& msg);
 
   /**
    * \brief Callback function for the ROS topic that contains the input point cloud and a list of (x,y,z) samples.
    * \param msg the incoming ROS message
   */
-  void cloud_samples_callback(const gpd_ros::CloudSamples& msg);
+  void cloud_samples_callback(const gpd_ros_msgs::CloudSamples& msg);
 
   /**
    * \brief Initialize the <cloud_camera> object given a <cloud_sources> message.
    * \param msg the <cloud_sources> message
    */
-  void initCloudCamera(const gpd_ros::CloudSources& msg);
+  void initCloudCamera(const gpd_ros_msgs::CloudSources& msg);
 
   /**
    * \brief Callback function for the ROS topic that contains the input samples.
    * \param msg the incoming ROS message
   */
-  void samples_callback(const gpd_ros::SamplesMsg& msg);
+  void samples_callback(const gpd_ros_msgs::SamplesMsg& msg);
 
   Eigen::Matrix3Xd fillMatrixFromFile(const std::string& filename, int num_normals);
 

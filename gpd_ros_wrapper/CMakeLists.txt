@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(gpd_ros)
+project(gpd_ros_wrapper)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED COMPONENTS cmake_modules eigen_conversions message_generation roscpp rospy sensor_msgs std_msgs)
+find_package(catkin REQUIRED COMPONENTS cmake_modules eigen_conversions message_generation roscpp rospy sensor_msgs std_msgs gpd_ros_msgs)
 
 # PCL
 find_package(PCL 1.9 REQUIRED)
@@ -16,7 +16,11 @@ add_definitions(${PCL_DEFINITIONS})
 find_package(OpenCV REQUIRED)
 
 ## System dependencies are found with CMake's conventions
-find_library(GPD_LIB NAMES gpd PATHS /home/jesch/local/lib PATH_SUFFIXES lib NO_DEFAULT_PATH)
+# set(LIBRARY_PATH $ENV{CMAKE_LIBRARY_PATH})
+set(LIBRARY_PATH /home/jesch/local/lib)
+
+message("Searching for libgpd in path ${LIBRARY_PATH}")
+find_library(GPD_LIB NAMES gpd PATHS ${LIBRARY_PATH} PATH_SUFFIXES lib NO_DEFAULT_PATH)
 if (GPD_LIB)
   message(STATUS "Library GPD found in ${GPD_LIB}")
 else()
@@ -26,16 +30,6 @@ include_directories(${GPD_LIB_INCLUDE_DIR})
 message(STATUS "gpd_include_dir: ${GPD_LIB_INCLUDE_DIR}")
 
 set(CMAKE_CXX_FLAGS "-O3 -fopenmp -fPIC -Wno-deprecated -Wenum-compare -Wno-ignored-attributes -std=c++14")
-
-## Generate messages in the 'msg' folder
-add_message_files(FILES CloudIndexed.msg CloudSamples.msg CloudSources.msg GraspConfig.msg GraspConfigList.msg
-  SamplesMsg.msg)
-
-## Generate services in the 'srv' folder
-add_service_files(FILES detect_grasps.srv)
-
-## Generate added messages and services with any dependencies listed here
-generate_messages(DEPENDENCIES geometry_msgs sensor_msgs std_msgs)
 
 ###################################
 ## catkin specific configuration ##
@@ -68,8 +62,8 @@ add_dependencies(${PROJECT_NAME}_grasp_messages ${catkin_EXPORTED_TARGETS})
 add_library(${PROJECT_NAME}_grasp_plotter src/${PROJECT_NAME}/grasp_plotter.cpp)
 
 ## Declare a C++ executable
-add_executable(${PROJECT_NAME}_detect_grasps src/gpd_ros/grasp_detection_node.cpp)
-add_executable(${PROJECT_NAME}_detect_grasps_server src/gpd_ros/grasp_detection_server.cpp)
+add_executable(${PROJECT_NAME}_detect_grasps src/gpd_ros_wrapper/grasp_detection_node.cpp)
+add_executable(${PROJECT_NAME}_detect_grasps_server src/gpd_ros_wrapper/grasp_detection_server.cpp)
 
 ## Rename C++ executable without prefix
 set_target_properties(${PROJECT_NAME}_detect_grasps PROPERTIES OUTPUT_NAME detect_grasps PREFIX "")

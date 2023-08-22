@@ -1,4 +1,4 @@
-#include <gpd_ros/grasp_plotter.h>
+#include <gpd_ros_wrapper/grasp_plotter.h>
 
 
 GraspPlotter::GraspPlotter(ros::NodeHandle& node, const gpd::candidate::HandGeometry& params)

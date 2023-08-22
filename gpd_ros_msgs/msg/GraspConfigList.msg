@@ -4,4 +4,4 @@
 Header header
 
 # The list of grasp configurations.
-gpd_ros/GraspConfig[] grasps
+gpd_ros_msgs/GraspConfig[] grasps

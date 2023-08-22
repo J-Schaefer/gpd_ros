@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>gpd_ros</name>
+  <version>0.0.0</version>
+  <description>The gpd_ros package</description>
+
+  <author email="jesch@todo.todo">Andreas ten Pas</author>
+  <maintainer email="jesch@todo.todo">Jeroen Schäfer</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <metapackage/>
+  </export>
+</package>

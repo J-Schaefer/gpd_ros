@@ -46,15 +46,15 @@
 #include <gpd/grasp_detector.h>
 
 // this project (services)
-#include <gpd_ros/detect_grasps.h>
+#include <gpd_ros_msgs/detect_grasps.h>
 
 // this project (messages)
-#include <gpd_ros/GraspConfig.h>
-#include <gpd_ros/GraspConfigList.h>
+#include <gpd_ros_msgs/GraspConfig.h>
+#include <gpd_ros_msgs/GraspConfigList.h>
 
 // this project (headers)
-#include <gpd_ros/grasp_messages.h>
-#include <gpd_ros/grasp_plotter.h>
+#include <gpd_ros_wrapper/grasp_messages.h>
+#include <gpd_ros_wrapper/grasp_plotter.h>
 
 typedef pcl::PointCloud<pcl::PointXYZRGBA> PointCloudRGBA;
 typedef pcl::PointCloud<pcl::PointNormal> PointCloudPointNormal;
@@ -84,7 +84,7 @@ public:
    * \param req the service request
    * \param res the service response
    */
-  bool detectGrasps(gpd_ros::detect_grasps::Request& req, gpd_ros::detect_grasps::Response& res);
+  bool detectGrasps(gpd_ros_msgs::detect_grasps::Request& req, gpd_ros_msgs::detect_grasps::Response& res);
 
 
 private:
